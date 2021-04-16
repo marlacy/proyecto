@@ -1,0 +1,73 @@
+#Proyecto Rstudio
+
+getwd()
+setwd("/Users/marla/Desktop/Bedu R/ejemplo1")
+inegi <-read.csv("ENOEN_sdemt420.csv")
+dim(inegi)
+str(inegi)
+head(inegi)
+View(inegi)
+summary(inegi)
+library(dplyr)
+library(ggplot2)
+
+inegi2 <-select(inegi, -est_d_tri, -est_d_men, -clase2,-ingocup, clase1)
+
+inegi3<- transform(inegi3,sex=factor(sex,labels=c("Hombre", "Mujer")))
+
+Sin_seguro <- inegi3[inegi3$medica5 == 1,]
+library(dplyr)
+hist(informalidadbd$eda, breaks = (seq(0,99,2)), 
+     main = "Histograma de Sin seguro por edad",
+     xlab = "Edad",
+     ylab = "Frecuencia")
+Sin_seguro%>%
+  ggplot() + 
+  aes(eda) +
+  geom_histogram(binwidth = 10, col="black", fill = "pink") + 
+  ggtitle("Histograma de Informalidad por Edad") +
+  ylab("Frecuencia") +
+  xlab("Edad") + 
+  theme_light()
+attach(informalidadbd)
+plot(eda, sex, xlab = "Edad", 
+     ylab = "Genero", pch = 16)
+m1 <- lm(sex~eda)
+summary(m1)
+abline(lsfit(eda, sex)) # recta
+mtext(expression(paste('Modelo de regresión lineal simple:',
+                       ' ',
+                       y[i] == beta[0] + beta[1]*x[i] + e[i])),
+      side = 3, adj=1, font = 2)
+
+# Recta de regresión poblacional
+
+text(x = 200, y = 240, expression(paste('Recta de regresión:',
+                                        ' ',
+                                        y[i] == beta[0] + beta[1]*x[i])),
+     adj = 1, font = 2)
+
+
+# Recta de regresión estimada
+
+text(x = 350, y = 180, expression(paste('Recta estimada:',
+                                        ' ',
+                                        hat(y)[i] == hat(beta)[0] + hat(beta)[1]*x[i])),
+     adj = 1, font = 2)
+
+# Recta de regresión estimada
+
+text(x = 350, y = 160, expression(paste('Recta estimada:',
+                                        ' ',
+                                        hat(y)[i] == 149.74770 + 0.25924*x[i])),
+     adj = 1, font = 2)
+
+# Residuales
+
+points(189, 215, pch=16, col = "red") # Punto muestral
+149.74770 + 0.25924 * 189 # Valor y sobre la recta estimada
+lines(c(189, 189), c(198.7441, 215), col = "red")
+
+points(173, 166, pch=16, col = "red") # Punto muestral
+149.74770 + 0.25924 * 173 # Valor y sobre la recta estimada
+lines(c(173, 173), c(166, 194.5962), col = "red")
